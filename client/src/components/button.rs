@@ -1,3 +1,4 @@
+use crate::styler;
 use yew::prelude::*;
 
 #[derive(Clone, Properties, PartialEq)]
@@ -5,6 +6,7 @@ pub struct Props {
   pub children: Children,
   pub on_click: Callback<MouseEvent>,
   pub toggle: bool,
+  pub size: String,
 }
 
 struct State {
@@ -14,9 +16,10 @@ struct State {
 #[function_component(Button)]
 pub fn button(props: &Props) -> Html {
   let Props {
+    children,
     on_click,
     toggle,
-    children,
+    size,
   } = props.clone();
   let state = use_state(|| State { toggle: false });
 
@@ -32,9 +35,30 @@ pub fn button(props: &Props) -> Html {
     })
   };
 
+  let css = &format!(
+    "
+    font-size: {};
+    padding: 0.75em 1.5em;
+    color: #FFFFFF;
+    background-color: #597ade;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.375em;
+    box-shadow: 0px 3px 3px -1px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s;
+    &:hover,&:focus-visible {{
+      background-color: #495dba;
+      box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.6), 0px 1px 7px 0px rgba(0, 0, 0, 0.3);
+    }}
+    &:active {{
+      background-color: #7181d1;
+    }}
+    ",
+    size
+  );
   html! {
     <button
-      class="component-button-root"
+      class={styler::build(css)}
       onclick={handle_onclick}
     >
       { for children.iter() }

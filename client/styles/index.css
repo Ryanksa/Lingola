@@ -1,9 +1,5 @@
-:root {
-  --bg: rgb(159, 155, 177);
-}
-
 body {
-  background-color: var(--bg);
+  background-color: rgb(159, 155, 177);
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
