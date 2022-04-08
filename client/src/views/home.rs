@@ -3,8 +3,8 @@ use yew::prelude::*;
 
 use crate::components::{button::Button, typography::Typography};
 
-#[function_component(Landing)]
-pub fn landing() -> Html {
+#[function_component(Home)]
+pub fn home() -> Html {
   let handle_click = { Callback::from(move |_event: MouseEvent| {}) };
 
   let css = "

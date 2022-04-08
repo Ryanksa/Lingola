@@ -1,1 +1,1 @@
-pub mod landing;
+pub mod home;

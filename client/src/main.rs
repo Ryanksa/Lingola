@@ -1,15 +1,21 @@
-use yew::prelude::*;
+#[macro_use]
+extern crate lazy_static;
 
 pub mod components;
+mod router;
 pub mod styler;
 pub mod views;
 
-use views::landing::Landing;
+use router::{switch, Route};
+use yew::prelude::*;
+use yew_router::prelude::*;
 
 #[function_component(App)]
 fn app() -> Html {
     html! {
-        <Landing></Landing>
+        <BrowserRouter>
+            <Switch<Route> render={Switch::render(switch)} />
+        </BrowserRouter>
     }
 }
 

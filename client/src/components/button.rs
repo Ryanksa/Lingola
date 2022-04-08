@@ -40,21 +40,24 @@ pub fn button(props: &Props) -> Html {
     font-size: {};
     padding: 0.75em 1.5em;
     color: #FFFFFF;
-    background-color: #597ade;
+    background-color: {};
     cursor: pointer;
     border: none;
     border-radius: 0.375em;
     box-shadow: 0px 3px 3px -1px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s;
     &:hover,&:focus-visible {{
-      background-color: #495dba;
-      box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.6), 0px 1px 7px 0px rgba(0, 0, 0, 0.3);
+      background-color: {};
+      box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.4), 0px 1px 7px 0px rgba(0, 0, 0, 0.2);
     }}
     &:active {{
-      background-color: #7181d1;
+      background-color: {};
     }}
     ",
-    size
+    size,
+    styler::PALETTE["primary"],
+    styler::PALETTE["primary-hover"],
+    styler::PALETTE["primary-active"]
   );
   html! {
     <button
