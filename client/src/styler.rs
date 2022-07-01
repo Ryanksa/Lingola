@@ -8,7 +8,7 @@ pub fn build(css: &str) -> Style {
 
 lazy_static! {
   pub static ref PALETTE: HashMap<&'static str, &'static str> = HashMap::from([
-    ("primary", "hsl(225, 67%, 61%)"),
+    ("primary", "hsl(225, 69%, 56%)"),
     ("primary-hover", "hsl(229, 57%, 51%)"),
     ("primary-active", "hsl(230, 51%, 63%)")
   ]);
