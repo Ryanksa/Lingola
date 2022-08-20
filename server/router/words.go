@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"lingola-server/models"
+	"lingola-server/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -41,8 +42,28 @@ func getWord(c *gin.Context) {
 }
 
 func getRandomWord(c *gin.Context) {
-	// TODO: Make API call to get a random word and store in DB if not exist
-	c.String(200, "")
+	words, err := utils.GetRandomWords(2)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": "Internal server error",
+		})
+	}
+
+	channels := [2]chan string{}
+	for i, word := range words {
+		channel := make(chan string)
+		channels[i] = channel
+		go utils.GetWordDefinition(word, channel)
+	}
+
+	definitions := [2]string{}
+	for i, channel := range channels {
+		definitions[i] = <-channel
+	}
+	c.JSON(200, gin.H{
+		"words":       words,
+		"definitions": definitions,
+	})
 }
 
 func postWord(c *gin.Context) {
