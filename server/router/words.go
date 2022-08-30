@@ -41,12 +41,13 @@ func getWord(c *gin.Context) {
 	})
 }
 
-func getRandomWord(c *gin.Context) {
+func getRandomWords(c *gin.Context) {
 	words, err := utils.GetRandomWords(2)
-	if err != nil {
+	if err != nil || len(words) != 2 {
 		c.JSON(500, gin.H{
 			"message": "Internal server error",
 		})
+		return
 	}
 
 	channels := [2]chan string{}
@@ -60,6 +61,7 @@ func getRandomWord(c *gin.Context) {
 	for i, channel := range channels {
 		definitions[i] = <-channel
 	}
+
 	c.JSON(200, gin.H{
 		"words":       words,
 		"definitions": definitions,

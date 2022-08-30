@@ -15,7 +15,7 @@ func GetRouter() *gin.Engine {
 	wordGroup := router.Group("/word")
 	{
 		wordGroup.GET("/one/:word", getWord)
-		wordGroup.GET("/random", getRandomWord)
+		wordGroup.GET("/random", getRandomWords)
 		wordGroup.POST("/create", postWord)
 		wordGroup.POST("/delete", deleteWord)
 	}

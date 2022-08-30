@@ -5,10 +5,8 @@ import (
 	"log"
 	"os"
 	"regexp"
-	"strings"
 
 	"github.com/joho/godotenv"
-	"github.com/tjarratt/babble"
 )
 
 func LoadEnv() {
@@ -24,15 +22,25 @@ func LoadEnv() {
 	}
 }
 
-func GetRandomWords(count int) ([]string, error) {
-	if count <= 0 {
-		return []string{}, errors.New("count needs to be greater than 0")
+func GetRandomWords(num int) ([]string, error) {
+	if num <= 0 {
+		return []string{}, errors.New("num needs to be greater than 0")
 	}
-	babbler := babble.NewBabbler()
-	babbler.Count = count
-	babbler.Separator = " "
-	words := babbler.Babble()
-	return strings.Split(words, " "), nil
+
+	var words []string
+	var err error
+	if os.Getenv("RANDOMIZER") == "wordnik" {
+		words, err = getRandomWordsFromWordnik(num)
+	} else if os.Getenv("RANDOMIZER") == "babble" {
+		words, err = getRandomWordsFromBabble(num)
+	} else {
+		err = errors.New("missing RANDOMIZER env variable")
+	}
+
+	if err != nil {
+		return []string{}, err
+	}
+	return words, nil
 }
 
 func GetWordDefinition(word string, channel chan string) {
