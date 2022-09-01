@@ -45,13 +45,14 @@ pub fn button(props: &Props) -> Html {
     border: none;
     border-radius: 0.375em;
     box-shadow: 0px 3px 3px -1px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
     &:hover,&:focus-visible {{
       background-color: {};
       box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.4), 0px 1px 7px 0px rgba(0, 0, 0, 0.2);
     }}
     &:active {{
       background-color: {};
+      transform: scale(0.95);
     }}
     ",
     size,
