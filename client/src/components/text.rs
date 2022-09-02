@@ -9,8 +9,8 @@ pub struct Props {
   pub color: String,
 }
 
-#[function_component(Typography)]
-pub fn typography(props: &Props) -> Html {
+#[function_component(Text)]
+pub fn text(props: &Props) -> Html {
   let Props {
     children,
     size,

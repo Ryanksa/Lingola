@@ -10,3 +10,6 @@ yew = "0.19.3"
 yew-router = "0.16"
 stylist = { version = "0.10", features = ["yew_integration"] }
 lazy_static = "1.4.0"
+wasm-bindgen-futures = "0.4"
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+serde = { version = "1.0", features = ["derive"] }

@@ -9,6 +9,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type Word struct {
+	Word       string `json:"word"`
+	Definition string `json:"definition"`
+}
+
 type PostWordBody struct {
 	Word       string `json:"word"`
 	Definition string `json:"definition"`
@@ -57,15 +62,15 @@ func getRandomWords(c *gin.Context) {
 		go utils.GetWordDefinition(word, channel)
 	}
 
-	definitions := [2]string{}
+	wordsAndDefs := [2]Word{}
 	for i, channel := range channels {
-		definitions[i] = <-channel
+		wordsAndDefs[i] = Word{
+			Word:       words[i],
+			Definition: <-channel,
+		}
 	}
 
-	c.JSON(200, gin.H{
-		"words":       words,
-		"definitions": definitions,
-	})
+	c.JSON(200, wordsAndDefs)
 }
 
 func postWord(c *gin.Context) {
