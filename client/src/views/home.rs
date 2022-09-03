@@ -87,12 +87,12 @@ pub fn home() -> Html {
           </Text>
         </div>
         <div class="panel left">
-          <Text size="1rem" weight={300} color="">
+          <Text size="1.5rem" weight={300} color={styler::PALETTE["light-base"]}>
             { "An app to learn new words and build your vocabulary pool." }
           </Text>
         </div>
         <div class="panel right">
-          <Text size="1rem" weight={300} color="">
+          <Text size="1.5rem" weight={300} color={styler::PALETTE["light-base"]}>
             { "You'll get presented with a word and two definitions to pick from." }
           </Text>
         </div>
