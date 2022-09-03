@@ -17,7 +17,7 @@ pub fn learn() -> Html {
         move |_| {
             wasm_bindgen_futures::spawn_local(async move {
                 let fetched_words: Vec<WordAndDef> = client
-                    .get("http://localhost:5000/word/random")
+                    .get("http://localhost:5000/api/word/random")
                     .send()
                     .await
                     .unwrap()

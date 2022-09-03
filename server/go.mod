@@ -14,6 +14,7 @@ require (
 	github.com/daviddengcn/go-colortext v1.0.0 // indirect
 	github.com/deckarep/gosx-notifier v0.0.0-20180201035817-e127226297fb // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/gin-contrib/cors v1.4.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
