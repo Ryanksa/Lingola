@@ -3,6 +3,7 @@ extern crate lazy_static;
 
 pub mod components;
 mod router;
+pub mod services;
 pub mod styler;
 pub mod views;
 

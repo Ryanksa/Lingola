@@ -1,3 +1,4 @@
+use crate::services::http_get;
 use crate::styler;
 use serde::Deserialize;
 use yew::prelude::*;
@@ -10,21 +11,16 @@ struct WordAndDef {
 
 #[function_component(Learn)]
 pub fn learn() -> Html {
-    let client = reqwest::Client::new();
     let words: UseStateHandle<Vec<WordAndDef>> = use_state(|| vec![]);
+    let error: UseStateHandle<&str> = use_state(|| "");
 
     use_effect_with_deps(
         move |_| {
             wasm_bindgen_futures::spawn_local(async move {
-                let fetched_words: Vec<WordAndDef> = client
-                    .get("http://localhost:5000/api/word/random")
-                    .send()
-                    .await
-                    .unwrap()
-                    .json::<Vec<WordAndDef>>()
-                    .await
-                    .unwrap();
-                words.set(fetched_words);
+                match http_get("/api/word/random").await {
+                    Ok(fetched_words) => words.set(fetched_words),
+                    Err(_) => error.set("Out of words... Come back in an hour"),
+                }
             });
             return || {};
         },
