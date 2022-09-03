@@ -53,7 +53,8 @@ func getWordnikDefinition(word string) (string, error) {
 }
 
 func getRandomWordsFromWordnik(num int) ([]string, error) {
-	url := fmt.Sprintf("https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&limit=%d&api_key=%s", num, os.Getenv("WORDNIK_API_KEY"))
+	random_rules := "hasDictionaryDef=true&includePartOfSpeech=noun%2Cadjective%2Cverb%2Cadverb%2Cabbreviation"
+	url := fmt.Sprintf("https://api.wordnik.com/v4/words.json/randomWords?%s&limit=%d&api_key=%s", random_rules, num, os.Getenv("WORDNIK_API_KEY"))
 	res, err := http.Get(url)
 	if err != nil {
 		return []string{}, err
