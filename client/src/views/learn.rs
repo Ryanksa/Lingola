@@ -28,14 +28,15 @@ pub fn learn() -> Html {
         word: String::new(),
         definition: String::new(),
     };
+    let counter = use_state(|| 0);
 
     {
         let words = words.clone();
         let question = question.clone();
         let answer = answer.clone();
         let error = error.clone();
-        use_effect(|| {
-            if (*question).len() == 0 {
+        use_effect_with_deps(
+            |_| {
                 wasm_bindgen_futures::spawn_local(async move {
                     let result: Result<Vec<WordAndDef>, Error> = http_get("/api/word/random").await;
                     match result {
@@ -54,9 +55,10 @@ pub fn learn() -> Html {
                         Err(_) => error.set("Out of words... Come back later"),
                     }
                 });
-            }
-            return || {};
-        });
+                return || {};
+            },
+            (*counter,),
+        );
     }
 
     let get_result_colour = |definition: &str| -> &'static str {
@@ -75,10 +77,10 @@ pub fn learn() -> Html {
     };
 
     let handle_next = {
-        let question = question.clone();
         let state = state.clone();
+        let counter = counter.clone();
         Callback::from(move |_event: MouseEvent| {
-            question.set(String::new());
+            counter.set(*counter + 1);
             state.set(State::CHOOSING);
         })
     };
