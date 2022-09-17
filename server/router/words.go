@@ -63,10 +63,18 @@ func getRandomWords(c *gin.Context) {
 	}
 
 	wordsAndDefs := [2]Word{}
-	for i, channel := range channels {
-		wordsAndDefs[i] = Word{
-			Word:       words[i],
-			Definition: <-channel,
+	for i := 0; i < 2; i++ {
+		select {
+		case def := <-channels[0]:
+			wordsAndDefs[0] = Word{
+				Word:       words[0],
+				Definition: def,
+			}
+		case def := <-channels[1]:
+			wordsAndDefs[1] = Word{
+				Word:       words[1],
+				Definition: def,
+			}
 		}
 	}
 
